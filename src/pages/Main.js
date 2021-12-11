@@ -10,7 +10,7 @@ import Grid from "@mui/material/Grid";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentIcon from "@mui/icons-material/Comment";
-import ShareIcon from "@mui/icons-material/Share";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const Main = () => {
   const { loading, currentUser } = useContext(AuthContext);
@@ -73,9 +73,11 @@ const Main = () => {
                   </Grid>
                   <Grid marginX={1.5} marginY={1.2}>
                     <FavoriteIcon sx={{ fontSize: "30px", color: "#A1A1A1" }} />
-                    <span>{item.like_count}</span>
-                    <CommentIcon sx={{ marginX: "7px", fontSize: "27px", color: "#A1A1A1" }} />
-                    <ShareIcon sx={{ fontSize: "30px", color: "#A1A1A1" }} />
+                    <Box component='span' marginLeft={.5} marginRight={2} fontSize={19} color='red'><code><b style={{verticalAlign: "10px"}}>{item.like_count}</b></code></Box>
+                    <CommentIcon sx={{ marginX: "7px", fontSize: "29px", color: "#A1A1A1" }} />
+                    <Box component='span' marginLeft={0} marginRight={2} fontSize={19} color='red'><code><b style={{verticalAlign: "10px"}}>{item.comment_count}</b></code></Box>
+                    <VisibilityIcon sx={{ fontSize: "33px", color: "#A1A1A1" }} />
+                    <Box component='span' marginLeft={.7} marginRight={2} fontSize={19} color='red'><code><b style={{verticalAlign: "10px"}}>{item.view_count}</b></code></Box>
                   </Grid>
                 </Box>
               );

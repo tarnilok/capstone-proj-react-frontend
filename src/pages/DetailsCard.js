@@ -7,7 +7,7 @@ import Grid from "@mui/material/Grid";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentIcon from "@mui/icons-material/Comment";
-import ShareIcon from "@mui/icons-material/Share";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import UpdateIcon from "@mui/icons-material/Update";
@@ -52,12 +52,10 @@ const DetailsCard = () => {
           <code>{cardDetail.user.toUpperCase()}</code>
           </Typography>
         </Grid>
-        <Grid marginX={1.5} marginY={1.2}>
-          <FavoriteIcon sx={{ fontSize: "30px", color: "#A1A1A1", "&:hover": { cursor: "pointer", color: "#B9B9B9" }, "&:active": { transform: "scale(1.2)", color: "#CC0000" } }} />
-          <CommentIcon sx={{ marginX: "7px", fontSize: "27px", color: "#A1A1A1", "&:hover": { cursor: "pointer", color: "#B9B9B9" }, "&:active": { transform: "scale(1.2)", color: "#046582" } }} />
-          <ShareIcon sx={{ fontSize: "30px", color: "#A1A1A1", "&:hover": { cursor: "pointer", color: "#B9B9B9" }, "&:active": { transform: "scale(1.2)", color: "#FBD601" } }} />
+
+          <Grid >
           {currentUser.data.user.username === cardDetail.user ? (
-            <ButtonGroup variant="contained" size="large" sx={{ display: "flex", justifyContent: "center", p: "10px" }}>
+            <center><ButtonGroup variant="contained" size="large" sx={{ display: "flex", p: "10px", width: '40%' }}>
               <Button color="secondary" startIcon={<UpdateIcon color="primary" />} onClick={() => history.push(`/updatecard/${cardDetail.title.replace(' ', '')}`)}>
                 Update
               </Button>
@@ -70,9 +68,18 @@ const DetailsCard = () => {
               >
                 Delete
               </Button>
-            </ButtonGroup>
+            </ButtonGroup></center>
           ) : null}
         </Grid>
+        <hr/>
+        <Grid marginX={1.5} marginY={1.5}>
+          <FavoriteIcon sx={{ fontSize: "40px", color: "#A1A1A1", "&:hover": { cursor: "pointer", color: "#B9B9B9" }, "&:active": { transform: "scale(1.2)", color: "#CC0000" } }} />
+          <Box component='span' marginLeft={.5} marginRight={2} fontSize={25} color='red'><code><b style={{verticalAlign: "13px"}}>{cardDetail.like_count}</b></code></Box>
+          <CommentIcon sx={{ marginX: "7px", fontSize: "38px", color: "#A1A1A1", "&:hover": { cursor: "pointer", color: "#B9B9B9" }, "&:active": { transform: "scale(1.2)", color: "#046582" } }} />
+          <Box component='span' marginLeft={0} marginRight={2} fontSize={25} color='red'><code><b style={{verticalAlign: "13px"}}>{cardDetail.comment_count}</b></code></Box>
+          <VisibilityIcon sx={{ fontSize: "43px", color: "#A1A1A1" }} />
+          <Box component='span' marginLeft={.7} marginRight={1} fontSize={25} color='red'><code><b style={{verticalAlign: "13px"}}>{cardDetail.view_count}</b></code></Box>
+          </Grid>
       </Box>
     </Grid>
   );

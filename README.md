@@ -1,1 +1,1 @@
-<h1 align="center">CAPSTONE PROJECT FRONTEND SIDE</h1>
+<h1 align="center">CAPSTONE PROJECT FRONT END SIDE</h1>
