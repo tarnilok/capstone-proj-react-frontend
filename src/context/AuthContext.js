@@ -4,13 +4,10 @@ import { createContext, useState, useEffect } from "react";
 export const AuthContext = createContext();
 
 function AuthContextProvider(props) {
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('userCredential')) || null);
   const [cardDetail, setCardDetail] = useState({});
   const [loading, setLoading ] = useState(true)
 
-  useEffect(() => {
-    ;
-  }, []); 
 
   const values = {
     setCurrentUser,

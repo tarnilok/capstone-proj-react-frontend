@@ -49,6 +49,7 @@ export default function Login() {
       const userCredential = await LoginApi(API_URL, ...args);
       console.log("userCredential", userCredential);
       successToastify(`Signed in successfully. Welcome ${userCredential.data.user.username} 🖐`);
+      localStorage.setItem('userCredential', JSON.stringify(userCredential));
       setCurrentUser(userCredential)
       history.push("/");
     } catch (error) {

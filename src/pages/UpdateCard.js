@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -29,6 +29,7 @@ const UpdateCard = () => {
       errorToastify("Something went wrong, try again!");
     }
   };
+
 // -
 //   const handleaddInfoSubmit = (e) => {
 //     e.preventDefault() 

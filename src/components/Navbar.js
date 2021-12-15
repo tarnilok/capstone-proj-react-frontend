@@ -25,6 +25,7 @@ const Navbar = () => {
       await LogoutApi(API_URL);
       successToastify(`Signed out succesfully. See you soon 👋`);
       setCurrentUser()
+      localStorage.clear();
     } catch (error) {
       errorToastify("Something went wrong, try again!");
     }

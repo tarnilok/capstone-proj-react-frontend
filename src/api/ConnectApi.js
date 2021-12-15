@@ -26,6 +26,32 @@ export const ConnectApi = (url) => {
   return [dataState];
 };
 
+export const ConnectApiLike = (url_like) => {
+  const [dataStateLike, setDataStateLike] = useState({ data: [] });
+
+  useEffect(() => {
+    const fetchDataFromApi = async () => {
+      try {
+        const response_like = await axios.get(url_like)
+        setDataStateLike({ ...dataStateLike, data: response_like.data });
+      } catch (error) {
+        console.log(error)
+      }
+    };
+    fetchDataFromApi();
+  }, []);
+  return [dataStateLike];
+};
+
+export const ConnectApiLikeDel = async (url_like) => {
+      try {
+        const response_like = await axios.delete(url_like)
+        return response_like
+      } catch (error) {
+        console.log(error)
+      }
+};
+
 export const RegisterApi = async (url, data) => {
   console.log(data);
   try {
@@ -79,7 +105,6 @@ export const LogoutApi = async (url) => {
 };
 
 export const UpdateUserApi = async (url, data, key) => {
-  const { setCurrentUser } = useContext(AuthContext);
   console.log(data);
   console.log('keeeeey: ', key)
   try {
@@ -124,3 +149,25 @@ export const CrudCardApi = async (url, data, method) => {
         return error;
       }
 };
+
+export const LikeViewApi = async (url, data, method) => {
+  console.log("like: ", method);
+  console.log("like: ", data);
+
+      try {
+        const response =  await axios({
+          method: method,
+          url: url,
+          data: {
+            user: data[1],
+            card: data[0],
+          },
+          headers: { Authorization: `Token ${data[2]}` },
+        });
+        return response;
+      } catch (error) {
+        console.log(error);
+        return error;
+      }
+    }
+

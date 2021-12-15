@@ -1,5 +1,5 @@
-import { ConnectApi } from "../api/ConnectApi";
-import React, { useContext} from "react";
+import { ConnectApi} from "../api/ConnectApi";
+import React, { useContext } from "react";
 import { Typography } from "@mui/material";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
@@ -10,21 +10,24 @@ import Grid from "@mui/material/Grid";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentIcon from "@mui/icons-material/Comment";
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import {LikeCommentView} from '../components/LikeCommentView'
 
 const Main = () => {
-  const { loading, currentUser } = useContext(AuthContext);
+  const { loading, currentUser, setCardDetail } = useContext(AuthContext);
   const API_URL = "https://dj-react-capstone-project.herokuapp.com/cards/";
+  // const API_URL_LIKE = "https://dj-react-capstone-project.herokuapp.com/liked/";
   const dataState = ConnectApi(API_URL);
+  // const dataStateLike = ConnectApiLike(API_URL_LIKE);
   console.log(dataState);
+  // console.log(dataStateLike);
   console.log("currentuser: ", currentUser);
-
+  
   const history = useHistory();
-  const { setCardDetail } = useContext(AuthContext);
-
   const handleDetails = (e) => {
-    console.log("veri: ", e);
+    // console.log("veri: ", e);
     if (currentUser) {
+      // localStorage.setItem('CardDetail', JSON.stringify(e));
       setCardDetail(e);
       history.push(`detailcard/${e.title.replace(" ", "")}`);
     } else {
@@ -32,6 +35,7 @@ const Main = () => {
       history.push("/login");
     }
   };
+  
   return (
     <Box sx={{ backgroundImage: "linear-gradient(to top, #accbee 0%, #e7f0fd 100%)", paddingY: "90px" }} minHeight="100vh">
       <Typography textAlign="center" sx={{ fontSize: "40px", fontFamily: "Girassol", fontWeight: "bolder", color: "#046582", "@media(max-width:600px)": { fontSize: "1.7rem" } }}>{`─── DASHBOARD ───`}</Typography>
@@ -44,7 +48,6 @@ const Main = () => {
         <Box>
           <Grid item container>
             {dataState[0].data.results?.map((item) => {
-
               return (
                 <Box key={item?.id} width="400px" flexShrink="1" sx={{ borderRadius: 3, boxShadow: "10px 10px 4px grey", backgroundColor: "#fff", mx: "35px", mb: "45px" }}>
                   <Box variant="button" onClick={() => handleDetails(item)} sx={{ "&:hover": { cursor: "pointer" }, backgroundColor: "#E9E9E9" }}>
@@ -54,11 +57,15 @@ const Main = () => {
                     </Typography>
                     {item.createdDate.substr(0, 20) === item.updatedDate.substr(0, 20) ? (
                       <Typography variant="subtitle2" paddingX={1}>
-                        <code><b>Created:</b> {item.createdDate.substr(0, 10)}</code>
+                        <code>
+                          <b>Created:</b> {item.createdDate.substr(0, 10)}
+                        </code>
                       </Typography>
                     ) : (
                       <Typography variant="subtitle2" paddingX={1}>
-                        <code><b>Updated:</b> {item.updatedDate.substr(0, 10)}</code>
+                        <code>
+                          <b>Updated:</b> {item.updatedDate.substr(0, 10)}
+                        </code>
                       </Typography>
                     )}
                     <Grid paddingX={1} height={45} sx={{ overflow: "hidden", display: "-webkit-box", "-webkit-line-clamp": "2", "-webkit-box-orient": "vertical" }}>
@@ -71,14 +78,27 @@ const Main = () => {
                       <code>{item.user.toUpperCase()}</code>
                     </Typography>
                   </Grid>
-                  <Grid marginX={1.5} marginY={1.2}>
+                  {/* <Grid marginX={1.5} marginY={1.2}>
                     <FavoriteIcon sx={{ fontSize: "30px", color: "#A1A1A1" }} />
-                    <Box component='span' marginLeft={.5} marginRight={2} fontSize={19} color='red'><code><b style={{verticalAlign: "10px"}}>{item.like_count}</b></code></Box>
+                    <Box component="span" marginLeft={0.5} marginRight={2} fontSize={19} color="red">
+                      <code>
+                        <b style={{ verticalAlign: "10px" }}>{item.like_count}</b>
+                      </code>
+                    </Box>
                     <CommentIcon sx={{ marginX: "7px", fontSize: "29px", color: "#A1A1A1" }} />
-                    <Box component='span' marginLeft={0} marginRight={2} fontSize={19} color='red'><code><b style={{verticalAlign: "10px"}}>{item.comment_count}</b></code></Box>
+                    <Box component="span" marginLeft={0} marginRight={2} fontSize={19} color="red">
+                      <code>
+                        <b style={{ verticalAlign: "10px" }}>{item.comment_count}</b>
+                      </code>
+                    </Box>
                     <VisibilityIcon sx={{ fontSize: "33px", color: "#A1A1A1" }} />
-                    <Box component='span' marginLeft={.7} marginRight={2} fontSize={19} color='red'><code><b style={{verticalAlign: "10px"}}>{item.view_count}</b></code></Box>
-                  </Grid>
+                    <Box component="span" marginLeft={0.7} marginRight={2} fontSize={19} color="red">
+                      <code>
+                        <b style={{ verticalAlign: "10px" }}>{item.view_count}</b>
+                      </code>
+                    </Box>
+                  </Grid> */}
+                  <LikeCommentView item={item}/>
                 </Box>
               );
             })}
