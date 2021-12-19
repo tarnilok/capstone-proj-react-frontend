@@ -1,5 +1,5 @@
-import { ConnectApi} from "../api/ConnectApi";
-import React, { useContext } from "react";
+import { ConnectApi, ViewedCardApi } from "../api/ConnectApi";
+import React, { useContext, useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
@@ -8,38 +8,42 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import CommentIcon from "@mui/icons-material/Comment";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import {LikeCommentView} from '../components/LikeCommentView'
+import { LikeCommentView } from "../components/LikeCommentView";
+import Pagination from "@mui/material/Pagination";
 
 const Main = () => {
   const { loading, currentUser, setCardDetail } = useContext(AuthContext);
-  const API_URL = "https://dj-react-capstone-project.herokuapp.com/cards/";
-  // const API_URL_LIKE = "https://dj-react-capstone-project.herokuapp.com/liked/";
-  const dataState = ConnectApi(API_URL);
-  // const dataStateLike = ConnectApiLike(API_URL_LIKE);
-  console.log(dataState);
-  // console.log(dataStateLike);
-  console.log("currentuser: ", currentUser);
-  
   const history = useHistory();
-  const handleDetails = (e) => {
-    // console.log("veri: ", e);
+  const [pageNumber, SetPageNumber] = useState(Number(1));
+  
+  const per_page = 4;
+  const API_URL = `https://dj-react-capstone-project.herokuapp.com/cards/?page=${pageNumber}&per_page=${per_page}`;
+  const API_URL_VIEW = "https://dj-react-capstone-project.herokuapp.com/viewed/";
+
+  let dataState = ConnectApi(API_URL);
+
+  const fetchCards = (e) => {
+    SetPageNumber(Number(e.target.textContent) || (e.target?.innerHTML.includes('M15') ? pageNumber-1 : pageNumber+1));   
+  };
+
+  async function handleDetails(e) {
     if (currentUser) {
-      // localStorage.setItem('CardDetail', JSON.stringify(e));
+      try {
+        await ViewedCardApi(API_URL_VIEW, [currentUser.data.user.id, e.id, currentUser.data.key], "post");
+      } catch (error) {
+        return error;
+      }
       setCardDetail(e);
       history.push(`detailcard/${e.title.replace(" ", "")}`);
     } else {
       alert("Please log in first to dive the deepness of my blogpage😁");
       history.push("/login");
     }
-  };
-  
+  }
+  // background-image: linear-gradient(to top, #ebc0fd 0%, #d9ded8 100%);;
   return (
-    <Box sx={{ backgroundImage: "linear-gradient(to top, #accbee 0%, #e7f0fd 100%)", paddingY: "90px" }} minHeight="100vh">
-      <Typography textAlign="center" sx={{ fontSize: "40px", fontFamily: "Girassol", fontWeight: "bolder", color: "#046582", "@media(max-width:600px)": { fontSize: "1.7rem" } }}>{`─── DASHBOARD ───`}</Typography>
-
+    <Box sx={{ backgroundImage: "linear-gradient(to top, #ebc0fd 0%, #d9ded8 100%)", paddingY: "90px" }} minHeight="100vh">
+      <Typography textAlign="center" sx={{ fontSize: "44px", fontFamily: "Girassol", fontWeight: "bolder", color: "#046582", "@media(max-width:600px)": { fontSize: "1.7rem" }, mt: "20px", mb: "35px" }}>{`─── DASHBOARD ───`}</Typography>
       {loading ? (
         <Stack sx={{ display: "flex", justifyContent: "center", mt: "50px" }} direction="row">
           <CircularProgress color="success" size="7rem" />
@@ -78,31 +82,14 @@ const Main = () => {
                       <code>{item.user.toUpperCase()}</code>
                     </Typography>
                   </Grid>
-                  {/* <Grid marginX={1.5} marginY={1.2}>
-                    <FavoriteIcon sx={{ fontSize: "30px", color: "#A1A1A1" }} />
-                    <Box component="span" marginLeft={0.5} marginRight={2} fontSize={19} color="red">
-                      <code>
-                        <b style={{ verticalAlign: "10px" }}>{item.like_count}</b>
-                      </code>
-                    </Box>
-                    <CommentIcon sx={{ marginX: "7px", fontSize: "29px", color: "#A1A1A1" }} />
-                    <Box component="span" marginLeft={0} marginRight={2} fontSize={19} color="red">
-                      <code>
-                        <b style={{ verticalAlign: "10px" }}>{item.comment_count}</b>
-                      </code>
-                    </Box>
-                    <VisibilityIcon sx={{ fontSize: "33px", color: "#A1A1A1" }} />
-                    <Box component="span" marginLeft={0.7} marginRight={2} fontSize={19} color="red">
-                      <code>
-                        <b style={{ verticalAlign: "10px" }}>{item.view_count}</b>
-                      </code>
-                    </Box>
-                  </Grid> */}
-                  <LikeCommentView item={item}/>
+                  <LikeCommentView item={item} />
                 </Box>
               );
             })}
           </Grid>
+          <Box width="100%">
+            <Pagination onChange={(e) => fetchCards(e)}  content='next' count={Math.ceil(dataState[0].data.count / per_page)} color="secondary" size="large" sx={{ display: "flex", justifyContent: "center" }} />
+          </Box>
         </Box>
       )}
     </Box>

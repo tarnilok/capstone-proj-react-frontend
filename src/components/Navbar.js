@@ -32,9 +32,9 @@ const Navbar = () => {
   }
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" sx={{ backgroundColor: "#046582" }}>
-        <Toolbar sx={{ display: "flex", justifyContent: "space-between", paddingY: "5px", backgroundColor: "#046582" }}>
-          <a href="https://github.com/tarnilok" target="_blank" rel="noreferrer" title="My Github Page">
+      <AppBar position="fixed" sx={{ backgroundColor: "#C64867" }}>
+        <Toolbar sx={{ display: "flex", justifyContent: "space-between", paddingY: "5px", backgroundColor: "#C64867" }}>
+          <a href="https://github.com/tarnilok/capstone-proj-react-frontend" target="_blank" rel="noreferrer" title="My Github Page">
             <img src={richard} alt="richard watterson" style={{ width: "60px", backgroundColor: "white", borderRadius: "50%" }} />
           </a>
           <Typography

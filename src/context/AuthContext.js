@@ -8,7 +8,6 @@ function AuthContextProvider(props) {
   const [cardDetail, setCardDetail] = useState({});
   const [loading, setLoading ] = useState(true)
 
-
   const values = {
     setCurrentUser,
     currentUser,

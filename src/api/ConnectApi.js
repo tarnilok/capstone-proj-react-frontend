@@ -17,13 +17,22 @@ export const ConnectApi = (url) => {
         setDataState({ ...dataState, data: response.data });
       } catch (error) {
         // setFetch({...fetch, isFetching: true})
-        console.log(error)
+        console.log(error);
       }
       setLoading(false);
     };
     fetchDataFromApi();
-  }, []);
+  }, [url]);
   return [dataState];
+};
+
+export const ConnectApiLikeDel = async (url_like) => {
+  try {
+    const response_like = await axios.delete(url_like);
+    return response_like;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const ConnectApiLike = (url_like) => {
@@ -32,10 +41,10 @@ export const ConnectApiLike = (url_like) => {
   useEffect(() => {
     const fetchDataFromApi = async () => {
       try {
-        const response_like = await axios.get(url_like)
+        const response_like = await axios.get(url_like);
         setDataStateLike({ ...dataStateLike, data: response_like.data });
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     };
     fetchDataFromApi();
@@ -43,14 +52,7 @@ export const ConnectApiLike = (url_like) => {
   return [dataStateLike];
 };
 
-export const ConnectApiLikeDel = async (url_like) => {
-      try {
-        const response_like = await axios.delete(url_like)
-        return response_like
-      } catch (error) {
-        console.log(error)
-      }
-};
+
 
 export const RegisterApi = async (url, data) => {
   console.log(data);
@@ -106,7 +108,7 @@ export const LogoutApi = async (url) => {
 
 export const UpdateUserApi = async (url, data, key) => {
   console.log(data);
-  console.log('keeeeey: ', key)
+  console.log("keeeeey: ", key);
   try {
     const response = await axios({
       method: "put",
@@ -130,44 +132,112 @@ export const UpdateUserApi = async (url, data, key) => {
 export const CrudCardApi = async (url, data, method) => {
   console.log("method: ", method);
   console.log("datacrud: ", data);
-      try {
-        const response = await axios({
-          method: method,
-          url: url,
-          data: {
-            title: data[0],
-            image_url: data[1],
-            content: data[2],
-            user_id: data[3],
-          },
-          headers: { Authorization: `Token ${data[4]}` },
-        });
-        console.log(response);
-        return response;
-      } catch (error) {
-        console.log(error);
-        return error;
-      }
+  try {
+    const response = await axios({
+      method: method,
+      url: url,
+      data: {
+        title: data[0],
+        image_url: data[1],
+        content: data[2],
+        user_id: data[3],
+      },
+      headers: { Authorization: `Token ${data[4]}` },
+    });
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
 };
 
 export const LikeViewApi = async (url, data, method) => {
   console.log("like: ", method);
   console.log("like: ", data);
+  try {
+    const response = await axios({
+      method: method,
+      url: url,
+      data: {
+        user: data[1],
+        card: data[0],
+      },
+      headers: { Authorization: `Token ${data[2]}` },
+    });
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
 
+export const ViewedCardApi = async (url, data, method) => {
+  // console.log("view: ", method);
+  // console.log("view: ", data);
+  try {
+    const response = await axios({
+      method: method,
+      url: url,
+      data: {
+        user: data[0],
+        card: data[1],
+      },
+      headers: { Authorization: `Token ${data[2]}` },
+    });
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+export const CommentCardApi = (url, data, method) => {
+  console.log("view: ", method);
+  console.log("view: ", data);
+  const [dataState, setDataState] = useState({ data: [] });
+
+  useEffect(() => {
+    const fetchDataFromApi = async () => {
       try {
-        const response =  await axios({
+        const response = await axios({
           method: method,
           url: url,
           data: {
+            content: data[0],
             user: data[1],
-            card: data[0],
+            card: data[2],
           },
-          headers: { Authorization: `Token ${data[2]}` },
+          headers: { Authorization: `Token ${data[3]}` },
         });
-        return response;
+        setDataState({ ...dataState, data: response.data });
       } catch (error) {
         console.log(error);
-        return error;
       }
-    }
+    };
+    fetchDataFromApi();
+  }, []);
+  return [dataState];
+};
 
+export const PostComment = async (url, data, method) => {
+  console.log("view: ", method);
+  console.log("view: ", data);
+
+  try {
+    const response = await axios({
+      method: method,
+      url: url,
+      data: {
+        content: data[0],
+        user_id: data[1],
+        card: data[2],
+      },
+      headers: { Authorization: `Token ${data[3]}` },
+    });
+    return response
+  } catch (error) {
+    console.log(error);
+    return error
+  }
+};
