@@ -21,7 +21,7 @@ const NewCard = () => {
 
   const AddNewCard = async (...args) => {
     try {
-      console.log('kart: ', ...args);
+      // console.log('kart: ', ...args);
       await CrudCardApi(API_URL, [...args, currentUser.data.user.id, currentUser.data.key], 'post');
       successToastify("Added successfully");
       history.push("/");

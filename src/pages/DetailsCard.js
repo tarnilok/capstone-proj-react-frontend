@@ -40,7 +40,7 @@ const DetailsCard = () => {
 
   const dataStateLike = ConnectApiLike(API_URL_LIKE);
   const commentData = CommentCardApi(API_URL_COMMENT, ["", "", "", currentUser.data.key], "get");
-  console.log(commentData);
+  // console.log(commentData);
 
   let id;
   dataStateLike[0].data?.map((e) => (cardDetail.id === e.card && currentUser?.data.user.id === e.user ? (id = e.id) : null));
@@ -90,7 +90,7 @@ const DetailsCard = () => {
   const CommentPoster = async (e) => {
     e.preventDefault();
     const { content } = e.target;
-    console.log("eeee: ", content.value);
+    // console.log("eeee: ", content.value);
     try {
       const CommentCatcher = await PostComment(API_URL_COMMENT, [content.value, currentUser?.data.user.id, cardDetail.id, currentUser.data.key], "post");
       e.target.content.value = "";

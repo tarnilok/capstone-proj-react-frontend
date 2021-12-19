@@ -31,16 +31,16 @@ const Profile = () => {
   const API_URL = "https://dj-react-capstone-project.herokuapp.com/auth_login/user/";
   const history = useHistory();
   const { currentUser, setCurrentUser } = useContext(AuthContext);
-  console.log(currentUser)
+  // console.log(currentUser)
 
   const ProfileUpdate = async (...args) => {
-    console.log('args: ', args)
+    // console.log('args: ', args)
     try {
       const userCredential = await UpdateUserApi(API_URL, args, currentUser.data.key );
       // console.log('aaa: ', userCredential);
       successToastify(`Updated Successfully`);
       setCurrentUser(...currentUser, userCredential)
-      console.log('bu: ', currentUser)
+      // console.log('bu: ', currentUser)
       history.push("/");
     } catch (error) {
       errorToastify("Something went wrong. Please try again!");

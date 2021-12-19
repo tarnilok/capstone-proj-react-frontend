@@ -44,9 +44,9 @@ export default function SignUp() {
 
   const SignUp = async (...args) => {
     try {
-      console.log(...args)
+      // console.log(...args)
       const userCredential = await RegisterApi(API_URL, ...args);
-      console.log(userCredential)
+      // console.log(userCredential)
       successToastify( `${userCredential.data.message} Welcome 🖐`);
       history.push('/login')
     } catch (error) {
