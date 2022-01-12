@@ -119,7 +119,7 @@ const DetailsCard = () => {
         <Grid marginX={1} marginTop={1.1}>
           <AccountBoxIcon color="inherit" sx={{ fontSize: "40px", verticalAlign: "-15px" }} />
           <Typography display="inline" marginLeft={1} fontSize={22}>
-            <code>{cardDetail.user.toUpperCase()}</code>
+            <code>{cardDetail.user?.toUpperCase()}</code>
           </Typography>
         </Grid>
 
