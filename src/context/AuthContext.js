@@ -5,7 +5,7 @@ export const AuthContext = createContext();
 
 function AuthContextProvider(props) {
   const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('userCredential')) || null);
-  const [cardDetail, setCardDetail] = useState({});
+  const [cardDetail, setCardDetail] = useState(JSON.parse(localStorage.getItem('e')));
   const [loading, setLoading ] = useState(true)
 
   const values = {

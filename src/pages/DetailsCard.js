@@ -65,6 +65,7 @@ const DetailsCard = () => {
       const posted = await LikeViewApi(API_URL_LIKE, [cardDetail.id, currentUser.data.user.id, currentUser.data.key], "post");
       if (posted?.status < 300) setLiked(!liked);
     }
+    window.location.reload()
   };
 
   const LikeCounter = () => {
@@ -126,7 +127,7 @@ const DetailsCard = () => {
         <Grid>
           {currentUser.data.user.username === cardDetail.user ? (
             <center>
-              <ButtonGroup variant="contained" size="large" sx={{ display: "flex", p: "10px", width: "40%" }}>
+              <ButtonGroup variant="contained" size="large" sx={{ display: "flex", p: "10px", width: "40%", justifyContent: "center" }}>
                 <Button color="secondary" startIcon={<UpdateIcon color="primary" />} onClick={() => history.push(`/updatecard/${cardDetail.title.replace(" ", "")}`)}>
                   Update
                 </Button>

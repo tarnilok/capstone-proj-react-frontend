@@ -14,7 +14,7 @@ import Pagination from "@mui/material/Pagination";
 const Main = () => {
   const { loading, currentUser, setCardDetail } = useContext(AuthContext);
   const history = useHistory();
-  const [pageNumber, SetPageNumber] = useState(Number(1));
+  const [pageNumber, SetPageNumber] = useState(1);
   
   const per_page = 4;
   const API_URL = `https://dj-react-capstone-project.herokuapp.com/cards/?page=${pageNumber}&per_page=${per_page}`;
@@ -33,6 +33,7 @@ const Main = () => {
       } catch (error) {
         return error;
       }
+      localStorage.setItem('e', JSON.stringify(e))
       setCardDetail(e);
       history.push(`detailcard/${e.title.replace(" ", "")}`);
     } else {
