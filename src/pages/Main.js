@@ -44,8 +44,8 @@ const Main = () => {
   }
 
   return (
-    <Box sx={{ backgroundImage: "linear-gradient(to top, #ebc0fd 0%, #d9ded8 100%)", paddingY: "90px" }} minHeight="100vh">
-      <Typography textAlign="center" sx={{ fontSize: "44px", fontFamily: "Girassol", fontWeight: "bolder", color: "#046582", "@media(max-width:600px)": { fontSize: "1.7rem" }, mt: "20px", mb: "35px" }}>{`─── DASHBOARD ───`}</Typography>
+    <Box sx={{ backgroundImage: "linear-gradient(to top, #ebc0fd 0%, #d9ded8 100%)", paddingY: "110px" }} minHeight="77.3vh">
+      <Typography textAlign="center" sx={{ fontSize: "44px", fontFamily: "Girassol", fontWeight: "bolder", color: "#046582", "@media(max-width:600px)": { fontSize: "1.7rem" }, mt: "20px", mb: "60px" }}>{`─── DASHBOARD ───`}</Typography>
       {loading ? (
         <Stack sx={{ display: "flex", justifyContent: "center", mt: "50px" }} direction="row">
           <CircularProgress color="success" size="7rem" />

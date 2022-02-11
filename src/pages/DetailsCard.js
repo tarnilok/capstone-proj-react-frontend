@@ -37,8 +37,8 @@ const DetailsCard = () => {
   const API_URL_LIKE = "https://dj-react-capstone-project.herokuapp.com/liked/";
   const API_URL_COMMENT = "https://dj-react-capstone-project.herokuapp.com/comments/";
 
-  const dataStateLike = ConnectApiLike(API_URL_LIKE);
-  const commentData = CommentCardApi(API_URL_COMMENT, ["", "", "", currentUser.data.key], "get");
+  const dataStateLike = ConnectApiLike(API_URL_LIKE, liked);
+  const commentData = CommentCardApi(API_URL_COMMENT, ["", "", "", currentUser.data.key], "get", liked);
 
   let id;
   dataStateLike[0].data?.map((e) => (cardDetail.id === e.card && currentUser?.data.user.id === e.user ? (id = e.id) : null));
@@ -90,10 +90,12 @@ const DetailsCard = () => {
     const { content } = e.target;
     try {
       const CommentCatcher = await PostComment(API_URL_COMMENT, [content.value, currentUser?.data.user.id, cardDetail.id, currentUser.data.key], "post");
+      setLiked(!liked)
       e.target.content.value = "";
       window.alert("your comment has been added👍");
       return CommentCatcher;
     } catch (error) {
+      console.log(error)
       return error;
     }
   };
