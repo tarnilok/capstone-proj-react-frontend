@@ -4,19 +4,15 @@ import { useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 export const ConnectApi = (url) => {
-  // const [fetch, setFetch] = useState({isFetching: false})
   const [dataState, setDataState] = useState({ data: [] });
-  // const [apiurl] = useState(url)
-  const { setLoading } = useContext(AuthContext);
+  const { setLoading} = useContext(AuthContext);
 
   useEffect(() => {
     const fetchDataFromApi = async () => {
       try {
-        // setFetch({isFetching: true})
         const response = await axios.get(url);
         setDataState({ ...dataState, data: response.data });
       } catch (error) {
-        // setFetch({...fetch, isFetching: true})
         console.log(error);
       }
       setLoading(false);
@@ -173,8 +169,6 @@ export const LikeViewApi = async (url, data, method) => {
 };
 
 export const ViewedCardApi = async (url, data, method) => {
-  // console.log("view: ", method);
-  // console.log("view: ", data);
   try {
     const response = await axios({
       method: method,

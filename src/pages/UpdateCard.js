@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -13,16 +13,14 @@ import { AuthContext } from "../context/AuthContext";
 import { CrudCardApi } from "../api/ConnectApi";
 import { successToastify, errorToastify } from "../styling/toastify";
 
-
 const UpdateCard = () => {
   const history = useHistory();
   const { cardDetail, currentUser } = useContext(AuthContext);
-  const API_URL = "https://dj-react-capstone-project.herokuapp.com/cards/"  + cardDetail.id + "/"
+  const API_URL = "https://dj-react-capstone-project.herokuapp.com/cards/" + cardDetail.id + "/";
 
   const UpdateCard = async (...args) => {
     try {
-      // console.log('kart: ', ...args);
-      await CrudCardApi(API_URL, [...args, currentUser.data.user.id, currentUser.data.key], 'put');
+      await CrudCardApi(API_URL, [...args, currentUser.data.user.id, currentUser.data.key], "put");
       successToastify("Updated successfully");
       history.push("/");
     } catch (error) {
@@ -30,22 +28,10 @@ const UpdateCard = () => {
     }
   };
 
-// -
-//   const handleaddInfoSubmit = (e) => {
-//     e.preventDefault() 
-//     const { title, url, content } = e.target
-//     UpdateCard(title.value, url.value, content.value);
-//   }
-
   const handleChangeInfoSubmit = (e) => {
     e.preventDefault();
     const { title, url, content } = e.target;
-    // console.log('bumudur: ', title.value, url.value, content.value)
-    // const today = new Date().toLocaleDateString().slice(0, 10);
-    // editHandler({ ...cardDetail, title: title.value, url: url.value, content: content.value, date: today });
-    // e.target.reset();
-    // history.push("/");
-    UpdateCard(title.value, url.value, content.value)
+    UpdateCard(title.value, url.value, content.value);
   };
   return (
     <Container component="main" maxWidth="sm" sx={{ borderRadius: 3, boxShadow: "10px 10px 4px grey", backgroundColor: "#fff", mt: 15, border: 1 }}>

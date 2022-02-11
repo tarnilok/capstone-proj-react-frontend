@@ -31,16 +31,12 @@ const Profile = () => {
   const API_URL = "https://dj-react-capstone-project.herokuapp.com/auth_login/user/";
   const history = useHistory();
   const { currentUser, setCurrentUser } = useContext(AuthContext);
-  // console.log(currentUser)
 
   const ProfileUpdate = async (...args) => {
-    // console.log('args: ', args)
     try {
-      const userCredential = await UpdateUserApi(API_URL, args, currentUser.data.key );
-      // console.log('aaa: ', userCredential);
+      const userCredential = await UpdateUserApi(API_URL, args, currentUser.data.key);
       successToastify(`Updated Successfully`);
-      setCurrentUser(...currentUser, userCredential)
-      // console.log('bu: ', currentUser)
+      setCurrentUser(...currentUser, userCredential);
       history.push("/");
     } catch (error) {
       errorToastify("Something went wrong. Please try again!");
@@ -63,7 +59,7 @@ const Profile = () => {
         <Box component="form" onSubmit={formik.handleSubmit} id="myForm" sx={{ mt: 3, p: 1, method: "POST" }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <TextField autoComplete="userName" defaultValue={currentUser.data.user.username}  name="userName" fullWidth id="userName" variant="outlined" label="User Name" onChange={formik.handleChange} onBlur={formik.handleBlur} />
+              <TextField autoComplete="userName" defaultValue={currentUser.data.user.username} name="userName" fullWidth id="userName" variant="outlined" label="User Name" onChange={formik.handleChange} onBlur={formik.handleBlur} />
               {formik.touched.userName && formik.errors.userName ? <Box sx={{ color: "red", fontSize: 13, ml: 1 }}>{formik.errors.userName} </Box> : null}
             </Grid>
             <Grid item xs={12} sm={6}>

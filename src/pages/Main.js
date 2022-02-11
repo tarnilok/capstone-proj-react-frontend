@@ -1,5 +1,5 @@
 import { ConnectApi, ViewedCardApi } from "../api/ConnectApi";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Typography } from "@mui/material";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
@@ -15,6 +15,7 @@ const Main = () => {
   const { loading, currentUser, setCardDetail } = useContext(AuthContext);
   const history = useHistory();
   const [pageNumber, SetPageNumber] = useState(1);
+  
   
   const per_page = 4;
   const API_URL = `https://dj-react-capstone-project.herokuapp.com/cards/?page=${pageNumber}&per_page=${per_page}`;
@@ -41,7 +42,7 @@ const Main = () => {
       history.push("/login");
     }
   }
-  // background-image: linear-gradient(to top, #ebc0fd 0%, #d9ded8 100%);;
+
   return (
     <Box sx={{ backgroundImage: "linear-gradient(to top, #ebc0fd 0%, #d9ded8 100%)", paddingY: "90px" }} minHeight="100vh">
       <Typography textAlign="center" sx={{ fontSize: "44px", fontFamily: "Girassol", fontWeight: "bolder", color: "#046582", "@media(max-width:600px)": { fontSize: "1.7rem" }, mt: "20px", mb: "35px" }}>{`─── DASHBOARD ───`}</Typography>

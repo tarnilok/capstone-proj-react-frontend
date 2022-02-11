@@ -8,7 +8,6 @@ import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 import Container from "@mui/material/Container";
 import newCard from "../assets/newCard.png";
-// import { addInfo } from "../auth/firebase";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { CrudCardApi } from "../api/ConnectApi";
@@ -21,8 +20,7 @@ const NewCard = () => {
 
   const AddNewCard = async (...args) => {
     try {
-      // console.log('kart: ', ...args);
-      await CrudCardApi(API_URL, [...args, currentUser.data.user.id, currentUser.data.key], 'post');
+      await CrudCardApi(API_URL, [...args, currentUser.data.user.id, currentUser.data.key], "post");
       successToastify("Added successfully");
       history.push("/");
     } catch (error) {
@@ -31,10 +29,10 @@ const NewCard = () => {
   };
 
   const handleaddInfoSubmit = (e) => {
-    e.preventDefault() 
-    const { title, url, content } = e.target
+    e.preventDefault();
+    const { title, url, content } = e.target;
     AddNewCard(title.value, url.value, content.value);
-  }
+  };
 
   return (
     <Container component="main" maxWidth="sm" sx={{ borderRadius: 3, boxShadow: "10px 10px 4px grey", backgroundColor: "#fff", mt: 15, border: 1 }}>

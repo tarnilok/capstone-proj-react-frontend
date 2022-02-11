@@ -45,9 +45,7 @@ export default function Login() {
 
   const SignIn = async (...args) => {
     try {
-      // console.log(...args);
       const userCredential = await LoginApi(API_URL, ...args);
-      // console.log("userCredential", userCredential);
       successToastify(`Signed in successfully. Welcome ${userCredential.data.user.username} 🖐`);
       localStorage.setItem('userCredential', JSON.stringify(userCredential));
       setCurrentUser(userCredential)
@@ -58,10 +56,6 @@ export default function Login() {
   };
 
   const onSubmit = (values) => SignIn(values);
-
-  // const signUpWıthGoogle = () => {
-  //   SignUpProvider();
-  // };
 
   const formik = useFormik({
     initialValues,
@@ -144,7 +138,6 @@ export default function Login() {
               "&:hover": { bgcolor: "#808080" },
               fontWeight: "bold",
             }}
-            // onClick={signUpWıthGoogle}
           >
             WITH
             <Avatar src={google} alt="google" sx={{ borderRadius: 0, width: 70, height: 24, ml: 1 }} />

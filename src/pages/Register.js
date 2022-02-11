@@ -56,10 +56,6 @@ export default function SignUp() {
 
   const onSubmit =(values) => SignUp(values);
 
-  // const signUpWıthGoogle = () => {
-  //   SignUpProvider();
-  // };
-
   const formik = useFormik({
     initialValues,
     onSubmit,
@@ -163,7 +159,6 @@ export default function SignUp() {
               "&:hover": { bgcolor: "#808080" },
               fontWeight: "bold",
             }}
-            // onClick={signUpWıthGoogle}
           >
             WITH
             <Avatar src={google} alt="google" sx={{ borderRadius: 0, width: 70, height: 24, ml: 1 }} />
