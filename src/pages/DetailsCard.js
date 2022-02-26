@@ -39,6 +39,7 @@ const DetailsCard = () => {
 
   const dataStateLike = ConnectApiLike(API_URL_LIKE, liked);
   const commentData = CommentCardApi(API_URL_COMMENT, ["", "", "", currentUser.data.key], "get", liked);
+  console.log('bbbb ', commentData)
 
   let id;
   dataStateLike[0].data?.map((e) => (cardDetail.id === e.card && currentUser?.data.user.id === e.user ? (id = e.id) : null));
@@ -74,6 +75,17 @@ const DetailsCard = () => {
     });
     return counter_list;
   };
+
+  const CommentCounter = () => {
+    let comment_counter = 0;
+    commentData[0].data?.map(i => {
+      if (cardDetail.id === i.card) {
+        // eslint-disable-next-line no-unused-vars
+        comment_counter++;
+      }
+    })
+    return comment_counter;
+  }
 
   const dbLikeRecord = (item) => {
     return dataStateLike[0].data.map((e) => {
@@ -153,7 +165,7 @@ const DetailsCard = () => {
           <CommentIcon onClick={CommentHandler} sx={{ marginX: "7px", fontSize: "38px", color: "#A1A1A1", "&:hover": { cursor: "pointer", color: "#B9B9B9" }, "&:active": { transform: "scale(1.2)", color: "#046582" } }} />
           <Box component="span" marginLeft={0} marginRight={2} fontSize={25} color="red">
             <code>
-              <b style={{ verticalAlign: "13px" }}>{cardDetail.comment_count}</b>
+              <b style={{ verticalAlign: "13px" }}>{CommentCounter()}</b>
             </code>
           </Box>
           <VisibilityIcon sx={{ fontSize: "43px", color: "#A1A1A1" }} />
@@ -186,9 +198,9 @@ const DetailsCard = () => {
                     <Box sx={{ my: 3, mx: 3 }}>
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
-                          <TextField value={e.content} fullWidth multiline id={e.id} variant="outlined" label={`Posted ${e.timesince} ago by ${e.user}`} name="content" />
+                          <TextField value={e.content} InputProps={{ disableUnderline: true }} fullWidth multiline id={e.id} variant="standard" label={`Posted ${e.timesince} ago by ${e.user}`} name="content" />
                         </Grid>
-                      </Grid>
+                      </Grid><hr/>
                     </Box>
                   );
                 }
